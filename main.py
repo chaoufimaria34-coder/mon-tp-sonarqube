@@ -10,7 +10,7 @@ public class MainTP {
 int main(
     // Code Smell: Variable globale non utilisée
     public static int GLOBAL_UNUSED_CODE = 9999;
-    public static String API_SECRET_KEY = "12345-SECRET-KEY"; // Vulnérabilité: Hardcoded secret
+    public static String API_SECRET_KEY = "12345-SECRET-KEY"; // Vulnérabilit é: Hardcoded secret
 
     public static void main(String[] args) {
         System.out.println("Démarrage du programme TP SonarQube...");
