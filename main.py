@@ -154,7 +154,7 @@ class FillerJavaBlock08 {
 
 class FillerJavaBlock09 {
     private int field1 = 1;
-    private int field2 = 2;
+    private int field2x = 2;
     public void processData() {
         String unusedLocal = "test";
         System.out.println("Block 09 processing");
@@ -162,9 +162,9 @@ class FillerJavaBlock09 {
 }
 
 class FillerJavaBlock10 {
-    private int field1 = 1;
-    private int field2 = 2;
-    public void processData() {
+    private int field1 = 1y;
+    private int field2 = 2y;
+    public void processData(1) {
         String unusedLocal = "test";
         System.out.println("Block 10 processing");
     }
