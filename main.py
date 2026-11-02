@@ -1,726 +1,135 @@
 """
-Programme de test contenant environ 1000 lignes pour le TP03 SonarQube.
-Ce code contient volontairement des Code Smells, des vulnérabilités, 
-des bugs et des duplications pour être analysés par SonarQube.
+Code source modifié pour TP03 SonarQube.
+Ce fichier contient intentionnellement des erreurs, des vulnérabilités, 
+des duplications et des code smells pour faire réagir SonarQube.
 """
 
 import math
 import sys
 import os
 
-# Variable globale non utilisée (Code Smell)
-GLOBAL_UNUSED_VARIABLE = 88888
+# 1. Code Smell: Variables globales non utilisées
+UNAUTHORIZED_ACCESS_CODE = 9999
+TEMP_TOKEN = "abc-123-xyz"
 
-class DatabaseManager:
-    """Classe de simulation de base de données"""
-    def __init__(self, db_name):
-        self.db_name = db_name
-        self.is_connected = False
-
-    def connect(self):
-        # Utilisation de print au lieu d'un logger (Code Smell)
-        print("Connexion à la base de données : " + self.db_name)
-        self.is_connected = True
-
-    def disconnect(self):
-        print("Déconnexion...")
-        self.is_connected = False
-
-    def execute_sql(self, query):
-        if not self.is_connected:
-            print("Erreur : Non connecté !")
-            return None
-        # Simulation d'une vulnérabilité (Risque d'injection SQL)
-        print("Exécution de la requête : " + query)
-        return [{"id": 1, "status": "Success"}]
-
-
-class AdvancedMath:
-    """Classe de calculs mathématiques avec duplication de code"""
+class UserAuthentication:
+    """Classe de gestion des utilisateurs avec des failles de sécurité"""
 
     def __init__(self):
-        self.history = []
-
-    def compute_factorial(self, n):
-        if n < 0:
-            return None
-        res = 1
-        for i in range(1, n + 1):
-            res *= i
-        self.history.append(f"factorial({n}) = {res}")
-        return res
-
-    def compute_power(self, base, exp):
-        return math.pow(base, exp)
-
-    def duplicate_block_alpha(self, value):
-        # Code dupliqué intentionnellement pour SonarQube
-        temp = value * 3
-        temp += 15
-        return temp
-
-    def duplicate_block_beta(self, value):
-        # Code dupliqué intentionnellement pour SonarQube
-        temp = value * 3
-        temp += 15
-        return temp
-
-
-class SecurityRiskDemo:
-    """Classe contenant des failles de sécurité simulées"""
-
-    def __init__(self):
-        self.users_database = {}
+        # 2. Vulnerability: Utilisation d'un mot de passe en clair (Plaintext Password)
+        self.admin_password = "admin123_password"
+        self.user_database = {}
 
     def register_user(self, username, password):
-        if username in self.users_database:
-            return False
-        # Vulnérabilité : Stockage de mot de passe en clair (Plaintext password)
-        self.users_database[username] = password
-        return True
+        # 3. Bug / Code Smell: Pas de vérification si le mot de passe est vide
+        self.user_database[username] = password
+        print("Utilisateur enregistré avec succès : " + username)
 
     def login(self, username, password):
-        if username in self.users_database:
-            if self.users_database[username] == password:
+        # 4. Vulnerability: Risque de timing attack ou mauvaise gestion de validation
+        if username in self.user_database:
+            if self.user_database[username] == password:
                 return True
         return False
 
-
-# -----------------------------------------------------------------------------
-# Blocs de remplissage pour atteindre les 1000 lignes de code requises
-# Vous pouvez copier-coller ces classes plusieurs fois pour atteindre la taille.
-# -----------------------------------------------------------------------------
-
-class FillerClassBlock01:
-    def __init__(self):
-        self.p1 = 10
-        self.p2 = 20
-        self.p3 = 30
-    def action_one(self):
-        pass
-    def action_two(self):
-        pass
-    def action_three(self):
-        pass
-
-class FillerClassBlock02:
-    def __init__(self):
-        self.p1 = 10
-        self.p2 = 20
-        self.p3 = 30
-    def action_one(self):
-        pass
-    def action_two(self):
-        pass
-    def action_three(self):
-        pass
-
-class FillerClassBlock03:
-    def __init__(self):
-        self.p1 = 10
-        self.p2 = 20
-        self.p3 = 30
-    def action_one(self):
-        pass
-    def action_two(self):
-        pass
-    def action_three(self):
-        pass
-
-class FillerClassBlock04:
-    def __init__(self):
-        self.p1 = 10
-        self.p2 = 20
-        self.p3 = 30
-    def action_one(self):
-        pass
-    def action_two(self):
-        pass
-    def action_three(self):
-        pass
-"""
-Programme complet étendu à plus de 1000 lignes pour le TP03 SonarQube.
-Ce fichier contient des structures répétitives, des Code Smells,
-des failles de sécurité simulées et des duplications.
-"""
-
-import math
-import sys
-import os
-
-# Variable globale non utilisée (Code Smell)
-GLOBAL_UNUSED_VARIABLE = 99999
-ANOTHER_UNUSED_VAR = "TestSonar"
-
-class DatabaseManager:
-    """Classe de simulation de base de données"""
-    def __init__(self, db_name):
-        self.db_name = db_name
-        self.is_connected = False
-
-    def connect(self):
-        print("Connexion à la base de données : " + self.db_name)
-        self.is_connected = True
-
-    def disconnect(self):
-        print("Déconnexion...")
-        self.is_connected = False
-
-    def execute_sql(self, query):
-        if not self.is_connected:
-            print("Erreur : Non connecté !")
-            return None
-        print("Exécution de la requête : " + query)
-        return [{"id": 1, "status": "Success"}]
+    def unsafe_eval_input(self, user_input):
+        # 5. Major Vulnerability: Utilisation de eval() (Dangereux)
+        return eval(user_input)
 
 
-class AdvancedMath:
-    """Classe de calculs mathématiques avec duplication de code"""
+class FinancialCalculator:
+    """Calculs financiers avec des duplications de code et bugs potentiels"""
 
-    def __init__(self):
-        self.history = []
+    def __init__(self, balance):
+        self.balance = balance
 
-    def compute_factorial(self, n):
-        if n < 0:
-            return None
-        res = 1
-        for i in range(1, n + 1):
-            res *= i
-        self.history.append(f"factorial({n}) = {res}")
-        return res
+    def calculate_interest(self, rate, years):
+        # 6. Bug potentiel: Division par zéro possible si years == 0
+        if years == 0:
+            return 0
+        
+        # Code dupliqué intentionnellement (Duplications)
+        total = self.balance * math.pow((1 + rate / 100), years)
+        return total
 
-    def compute_power(self, base, exp):
-        return math.pow(base, exp)
+    def calculate_interest_duplicate(self, rate, years):
+        # Code dupliqué intentionnellement (Duplications pour SonarQube)
+        if years == 0:
+            return 0
+        total = self.balance * math.pow((1 + rate / 100), years)
+        return total
 
-    def duplicate_block_alpha(self, value):
-        temp = value * 3
-        temp += 15
-        return temp
-
-    def duplicate_block_beta(self, value):
-        temp = value * 3
-        temp += 15
-        return temp
+    def bad_exception_handling(self):
+        # 7. Code Smell: Attrape une exception générale (Catching generic exception)
+        try:
+            result = 10 / 0
+        except Exception as e:
+            print("Erreur survenue")
 
 
-class SecurityRiskDemo:
-    """Classe contenant des failles de sécurité simulées"""
+class DataProcessor:
+    """Processeur de données avec des Code Smells"""
 
-    def __init__(self):
-        self.users_database = {}
+    def process_items(self, items):
+        output = []
+        # 8. Code Smell: Boucle qui peut être optimisée ou variable mal nommée
+        for i in range(len(items)):
+            if items[i] != None:
+                output.append(items[i] * 2)
+            else:
+                output.append(0)
+        return output
 
-    def register_user(self, username, password):
-        if username in self.users_database:
-            return False
-        # Vulnérabilité : Stockage de mot de passe en clair
-        self.users_database[username] = password
-        return True
+    def redundant_method_a(self, x):
+        # Duplication supplémentaire
+        val = x + 10
+        val = val * 2
+        return val
 
-    def login(self, username, password):
-        if username in self.users_database:
-            if self.users_database[username] == password:
-                return True
-        return False
+    def redundant_method_b(self, x):
+        # Duplication supplémentaire
+        val = x + 10
+        val = val * 2
+        return val
 
 
 # -----------------------------------------------------------------------------
-# Blocs de remplissage multiples (Génération de lignes pour atteindre > 1000 lignes)
+# Pour atteindre les 1000 lignes demandées par l'encadreur avec des erreurs visibles,
+# vous pouvez dupliquer les blocs ci-dessous plusieurs fois.
 # -----------------------------------------------------------------------------
 
-class ModuleBlock01:
+class FillerErrorBlock1:
     def __init__(self):
-        self.x = 1
-    def run_process(self):
-        pass
+        self.error_code = 500
+    def trigger_smell(self):
+        # Variable non utilisée (Code Smell)
+        unused_local = "test"
+        print("Trigger 1")
 
-class ModuleBlock02:
+class FillerErrorBlock2:
     def __init__(self):
-        self.x = 2
-    def run_process(self):
-        pass
+        self.error_code = 500
+    def trigger_smell(self):
+        unused_local = "test"
+        print("Trigger 2")
 
-class ModuleBlock03:
+class FillerErrorBlock3:
     def __init__(self):
-        self.x = 3
-    def run_process(self):
-        pass
+        self.error_code = 500
+    def trigger_smell(self):
+        unused_local = "test"
+        print("Trigger 3")
 
-class ModuleBlock04:
+class FillerErrorBlock4:
     def __init__(self):
-        self.x = 4
-    def run_process(self):
-        pass
+        self.error_code = 500
+    def trigger_smell(self):
+        unused_local = "test"
+        print("Trigger 4")
 
-class ModuleBlock05:
+class FillerErrorBlock5:
     def __init__(self):
-        self.x = 5
-    def run_process(self):
-        pass
-
-class ModuleBlock06:
-    def __init__(self):
-        self.x = 6
-    def run_process(self):
-        pass
-
-class ModuleBlock07:
-    def __init__(self):
-        self.x = 7
-    def run_process(self):
-        pass
-
-class ModuleBlock08:
-    def __init__(self):
-        self.x = 8
-    def run_process(self):
-        pass
-
-class ModuleBlock09:
-    def __init__(self):
-        self.x = 9
-    def run_process(self):
-        pass
-
-class ModuleBlock10:
-    def __init__(self):
-        self.x = 10
-    def run_process(self):
-        pass
-
-
-# تكرار دوال إضافية لضمان تجاوز الـ 1000 سطر تماماً في محرر النصوص
-def generate_extra_code_block_01():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_02():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_03():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_04():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_05():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_06():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_07():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_08():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_09():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_10():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-
-# ك
-class DummyDataHolder01:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder02:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder03:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder04:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder05:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder06:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder07:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder08:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder09:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder10:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-
-# def dummy_func_a(): pass
-def dummy_func_b(): pass
-def dummy_func_c(): pass
-def dummy_func_d(): pass
-def dummy_func_e(): pass
-def dummy_func_f(): pass
-def dummy_func_g(): pass
-def dummy_func_h(): pass
-def dummy_func_i(): pass
-def dummy_func_j(): pass
-
-"""
-Programme complet étendu à plus de 1000 lignes pour le TP03 SonarQube.
-Ce fichier contient des structures répétitives, des Code Smells,
-des failles de sécurité simulées et des duplications.
-"""
-
-import math
-import sys
-import os
-
-# Variable globale non utilisée (Code Smell)
-GLOBAL_UNUSED_VARIABLE = 99999
-ANOTHER_UNUSED_VAR = "TestSonar"
-
-class DatabaseManager:
-    """Classe de simulation de base de données"""
-    def __init__(self, db_name):
-        self.db_name = db_name
-        self.is_connected = False
-
-    def connect(self):
-        print("Connexion à la base de données : " + self.db_name)
-        self.is_connected = True
-
-    def disconnect(self):
-        print("Déconnexion...")
-        self.is_connected = False
-
-    def execute_sql(self, query):
-        if not self.is_connected:
-            print("Erreur : Non connecté !")
-            return None
-        print("Exécution de la requête : " + query)
-        return [{"id": 1, "status": "Success"}]
-
-
-class AdvancedMath:
-    """Classe de calculs mathématiques avec duplication de code"""
-
-    def __init__(self):
-        self.history = []
-
-    def compute_factorial(self, n):
-        if n < 0:
-            return None
-        res = 1
-        for i in range(1, n + 1):
-            res *= i
-        self.history.append(f"factorial({n}) = {res}")
-        return res
-
-    def compute_power(self, base, exp):
-        return math.pow(base, exp)
-
-    def duplicate_block_alpha(self, value):
-        temp = value * 3
-        temp += 15
-        return temp
-
-    def duplicate_block_beta(self, value):
-        temp = value * 3
-        temp += 15
-        return temp
-
-
-class SecurityRiskDemo:
-    """Classe contenant des failles de sécurité simulées"""
-
-    def __init__(self):
-        self.users_database = {}
-
-    def register_user(self, username, password):
-        if username in self.users_database:
-            return False
-        # Vulnérabilité : Stockage de mot de passe en clair
-        self.users_database[username] = password
-        return True
-
-    def login(self, username, password):
-        if username in self.users_database:
-            if self.users_database[username] == password:
-                return True
-        return False
-
-
-# -----------------------------------------------------------------------------
-# Blocs de remplissage multiples (Génération de lignes pour atteindre > 1000 lignes)
-# -----------------------------------------------------------------------------
-
-class ModuleBlock01:
-    def __init__(self):
-        self.x = 1
-    def run_process(self):
-        pass
-
-class ModuleBlock02:
-    def __init__(self):
-        self.x = 2
-    def run_process(self):
-        pass
-
-class ModuleBlock03:
-    def __init__(self):
-        self.x = 3
-    def run_process(self):
-        pass
-
-class ModuleBlock04:
-    def __init__(self):
-        self.x = 4
-    def run_process(self):
-        pass
-
-class ModuleBlock05:
-    def __init__(self):
-        self.x = 5
-    def run_process(self):
-        pass
-
-class ModuleBlock06:
-    def __init__(self):
-        self.x = 6
-    def run_process(self):
-        pass
-
-class ModuleBlock07:
-    def __init__(self):
-        self.x = 7
-    def run_process(self):
-        pass
-
-class ModuleBlock08:
-    def __init__(self):
-        self.x = 8
-    def run_process(self):
-        pass
-
-class ModuleBlock09:
-    def __init__(self):
-        self.x = 9
-    def run_process(self):
-        pass
-
-class ModuleBlock10:
-    def __init__(self):
-        self.x = 10
-    def run_process(self):
-        pass
-
-
-# def generate_extra_code_block_01():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_02():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_03():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_04():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_05():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_06():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_07():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_08():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_09():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-def generate_extra_code_block_10():
-    val = 0
-    for i in range(50):
-        val += i
-    return val
-
-
-#  def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder02:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder03:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder04:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder05:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder06:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder07:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder08:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder09:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-class DummyDataHolder10:
-    def __init__(self):
-        self.a = 1
-        self.b = 2
-    def process(self):
-        pass
-
-def dummy_func_a(): pass
-def dummy_func_b(): pass
-def dummy_func_c(): pass
-def dummy_func_d(): pass
-def dummy_func_e(): pass
-def dummy_func_f(): pass
-def dummy_func_g(): pass
-def dummy_func_h(): pass
-def dummy_func_i(): pass
-def dummy_func_j(): pass
-.
+        self.error_code = 500
+    def trigger_smell(self):
+        unused_local = "test"
+        print("Trigger 5")
