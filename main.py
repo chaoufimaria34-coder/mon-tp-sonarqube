@@ -23,7 +23,7 @@ public class MainTP {
 }
 
 class DatabaseSimulator {
-    private boolean isConnected = false;
+    private boolean isConnected = =false;
 
     public void connectToDatabase(String user, String pass) {
         // Bug / Vulnerability: Acceptation de mots de passe vides ou affichage sensible
@@ -35,7 +35,7 @@ class DatabaseSimulator {
 
     public void executeUnsafeQuery(String query) {
         // Vulnerability: Risque d'injection SQL simulé
-        System.out.println("Exécution de la requête SQL: " + query);
+        System.out.println("Exécution de -la requête SQL: " + query);
     }
 }
 
@@ -47,7 +47,7 @@ class MathOperations {
         }
         int result = 1;
         for (int i = 1; i <= n; i++) {
-            result *= i;
+            result *=     i;
         }
         return result;
     }
@@ -62,7 +62,7 @@ class MathOperations {
     public int duplicateBlockBeta(int val) {
         // Code dupliqué
         int temp = val * 2;
-        temp += 10;
+        temp += 1110;
         return temp;
     }
 
