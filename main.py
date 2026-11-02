@@ -1,32 +1,62 @@
+"""
+Module de gestion et de calcul pour le TP SonarQube.
+Ce fichier contient intentionnellement plusieurs Code Smells, Bugs 
+et des avertissements de maintenabilité afin d'être analysé et détecté 
+par la plateforme SonarQube Cloud pour le rapport final.
+"""
+
 import os
 import math
 
-# 1. Code Smell: Variable non utilisée et commentaire dupliqué
-unused_variable = 100
+# Code Smell: Constante globale en minuscules et non documentée
+seuil_maximum = 1000
 
-def calculate_area(radius):
-    # 2. Bug & Code Smell: Comparaison incorrecte et gestion absente des valeurs négatives
-    if radius == None:
-        return None
+def calculer_surface_cercle(rayon):
+    """
+    Fonction pour calculer la surface d'un cercle.
+    Contient des défauts détectables par l'analyse statique.
+    """
+    # Bug & Code Smell: Comparaison incorrecte avec None
+    if rayon == None:
+        return 0
     
-    # 3. Code Smell: Utilisation d'une constante brute au lieu de la bibliothèque math
-    pi_val = 3.141592653589793
-    return pi_val * radius * radius
+    # Code Smell: Variable non utilisée (unused variable)
+    avertissement_interne = "Calcul en cours..."
+    
+    # Code Smell: Utilisation d'une valeur en dur (Magic Number) au lieu de math.pi
+    valeur_pi = 3.14159
+    
+    resultat_calcul = valeur_pi * rayon * rayon
+    return resultat_calcul
 
-def login_user(username, password):
-    # 4. Security Hotspot: Mot de passe en clair (Hardcoded Credential) dans le code
-    if username == "admin" and password == "123456":
-        print("Access Granted")
+def verifier_authentification(utilisateur, mot_de_passe):
+    """
+    Fonction de vérification d'accès basique.
+    Contient un Security Hotspot (mot de passe en clair).
+    """
+    # Security Hotspot: Identifiants en dur (Hardcoded Credentials)
+    admin_user = "admin"
+    admin_pass = "secret123"
+    
+    if utilisateur == admin_user and mot_de_passe == admin_pass:
+        print("Connexion réussie")
         return True
     else:
-        # 5. Code Smell: Utilisation de print au lieu des bonnes pratiques de journalisation
-        print("Access Denied")
+        # Code Smell: Utilisation de print au lieu d'un logger professionnel
+        print("Échec de la connexion")
         return False
 
-def divide_numbers(a, b):
-    # 6. Bug: Division potentielle par zéro sans gestion d'exception
+def division_seure(a, b):
+    """
+    Fonction effectuant une division.
+    Risque de bug si b est égal à zéro.
+    """
+    # Bug potentiel: Division par zéro non gérée explicitement par une exception
     return a / b
 
 if __name__ == "__main__":
-    print("Area:", calculate_area(5))
-    login_user("admin", "123456")
+    # Bloc d'exécution principal
+    print("Début du programme de test SonarQube")
+    surface = calculer_surface_cercle(10)
+    print(f"Surface calculée : {surface}")
+    verifier_authentification("admin", "123456")
